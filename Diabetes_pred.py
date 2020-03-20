@@ -5,8 +5,11 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-
-
+from sklearn.model_selection import GridSearchCV
+from sklearn.preprocessing import Imputer
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import confusion_matrix
 
 #importing the dataset
 dataset = pd.read_csv('diabetes.csv')
@@ -18,7 +21,7 @@ X[:,1:6][X[:,1:6]==0] = np.NaN
 
 
 #Taking care of missing data(NaN)
-from sklearn.preprocessing import Imputer
+
 imputer = Imputer(missing_values = 'NaN' ,strategy = 'mean', axis = 0)
 imputer = imputer.fit(X[:,1:8])
 X[:,1:8]= imputer.transform(X[:,1:8])
@@ -26,11 +29,9 @@ X[:,1:8]= imputer.transform(X[:,1:8])
 
 
 #dividing dataset into traininsg and test set
-from sklearn.model_selection import train_test_split
 X_train,X_test,Y_train,Y_test = train_test_split(X , Y, test_size = 0.2,random_state = 0)
 
 #Feature scaling
-from sklearn.preprocessing import StandardScaler
 sc = StandardScaler()
 X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test) 
@@ -40,7 +41,10 @@ import keras
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Dropout
-
+from keras.wrappers.scikit_learn import KerasClassifier
+from sklearn.model_selection import cross_val_score
+from keras.models import Sequential
+from keras.layers import Dense
 
 # Initialising the ANN
 classifier = Sequential()
@@ -68,15 +72,10 @@ y_pred = classifier.predict(X_test)
 y_pred = (y_pred > 0.6)
 
 # Making the Confusion Matrix
-from sklearn.metrics import confusion_matrix
+
 cm = confusion_matrix(Y_test, y_pred)
 
 #K-Fold cross validation
-from keras.wrappers.scikit_learn import KerasClassifier
-from sklearn.model_selection import cross_val_score
-from keras.models import Sequential
-from keras.layers import Dense
-
 def build_classifier():
     classifier = Sequential()
     classifier.add(Dense(units = 5, kernel_initializer = 'uniform', activation = 'relu', input_dim = 8))
@@ -93,12 +92,6 @@ mean = accuracies.mean()
 variance = accuracies.std()
 
 #Grid Search
-
-from keras.wrappers.scikit_learn import KerasClassifier
-from sklearn.model_selection import GridSearchCV
-from keras.models import Sequential
-from keras.layers import Dense
-
 def build_classifier(optimizer,batch_size,epochs,learn_rate):
     classifier = Sequential()
     classifier.add(Dense(units = 5, kernel_initializer = 'uniform', activation = 'relu', input_dim = 8))
