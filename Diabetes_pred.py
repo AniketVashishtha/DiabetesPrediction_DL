@@ -91,7 +91,7 @@ accuracies = cross_val_score(estimator = classifier, X = X_train,y = Y_train, cv
 mean = accuracies.mean()
 variance = accuracies.std()
 
-#Grid Search
+#Grid Search with K-fold cross validation(CV)
 def build_classifier(optimizer,batch_size,epochs,learn_rate):
     classifier = Sequential()
     classifier.add(Dense(units = 5, kernel_initializer = 'uniform', activation = 'relu', input_dim = 8))
@@ -104,8 +104,8 @@ def build_classifier(optimizer,batch_size,epochs,learn_rate):
 classifier = KerasClassifier(build_fn =build_classifier, verbose = 0,epochs = epochs,batch_size = batch_size)
 
 
-parameters = {'batch_size' : [30,50],
-                'epochs' : [100,200],
+parameters = {'batch_size' : [10,30,50],
+                'epochs' : [100,200,300],
                 'optimizer' : ['rmsprop','adam']
                 'learn_rate' : ['0.1','0.2']}
 
