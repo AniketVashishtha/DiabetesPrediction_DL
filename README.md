@@ -1,4 +1,4 @@
 # DiabetesPrediction_DL
 Predicting onset of Diabetes in humans after training our model on Pima Indian diabetes database which consists of features like Pregnancies, Glucose, BloodPressure, Skin thickness, Insulin, BMI, Diabetes, Age.
 In this program I have created a classfication artficial neural network using grid search and K fold cross validation which helps in predicting whether a patient has diabetes based on the values of above mentioned features inputted, with an accuracy of 83%. In this classification ANN grid search is used to find the optimal hyperparameters for our classifier and dropout regularization is also used to prevent overfitting and improve performance of the classifier on test dataset.
-I approached this problem from scratch and tried to experiment and find optimal ways of increasing accuracy and generalisation of the classifier so that it works well on new dataset. Hope this helps!
+I approached this problem from scratch and tried to experiment and find optimal ways via Grid search and hyperparameter tuning of increasing accuracy so that it works well on new dataset. Hope this helps!
